@@ -732,7 +732,7 @@ OBJDUMP = $(AVR_TOOLS_PATH)/$(OBJDUMP_NAME)
 AR      = $(AVR_TOOLS_PATH)/$(AR_NAME)
 SIZE    = $(AVR_TOOLS_PATH)/$(SIZE_NAME)
 NM      = $(AVR_TOOLS_PATH)/$(NM_NAME)
-REMOVE  = rm -rf
+REMOVE  = rm -f
 MV      = mv -f
 CAT     = cat
 ECHO    = echo
@@ -1138,7 +1138,8 @@ ifneq ($(strip $(AVRDUDE_ISP_FUSES_POST)),)
 endif
 
 clean:
-		$(REMOVE) $(LOCAL_OBJS) $(CORE_OBJS) $(LIB_OBJS) $(CORE_LIB) $(TARGETS) $(DEPS) $(USER_LIB_OBJS) ${OBJDIR}
+		$(REMOVE) $(LOCAL_OBJS) $(CORE_OBJS) $(LIB_OBJS) $(CORE_LIB) $(TARGETS) $(DEPS) $(USER_LIB_OBJS) $(OTHER_OBJS)
+		find ${OBJDIR} -type d -empty -delete
 
 size:	$(TARGET_HEX)
 		$(call avr_size,$(TARGET_ELF),$(TARGET_HEX))
