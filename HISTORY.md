@@ -10,6 +10,10 @@ I tried to give credit whenever possible. If I have missed anyone, kindly add it
 - In ISP mode, read baudrate and programmer from boards.txt. See #125
 - Add `burn_bootloader` target. See #85
 - Show correct path to `arduino.mk` file in help message. Fix #120
+- Change echo for printf. Fix #129 (https://github.com/thomassigurdsen)
+- Add support for ChipKiT 2013. Fix #136 (https://github.com/peplin)
+- Auto detect and include libraries specified in `USER_LIB_PATH`. Fix #135 (https://github.com/tinyladi)
+- Use `MAKEFILE_LIST` to get the name of the make file. Fix #130 (https://github.com/cantora)
 
 ### 1.0.1 (2013-09-25)
 - Unconditionally add -D in avrdude options. See #114

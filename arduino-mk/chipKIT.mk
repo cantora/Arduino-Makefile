@@ -72,15 +72,25 @@ endif
 
 AVR_TOOLS_DIR = $(ARDUINO_DIR)/hardware/pic32/compiler/pic32-tools
 
-AVRDUDE_DIR = $(ARDUINO_DIR)/hardware/tools
-AVRDUDE = $(AVRDUDE_DIR)/avrdude
-AVRDUDE_CONF = $(AVRDUDE_DIR)/avrdude.conf
+# The same as in Arduino, the Linux distribution contains avrdude and
+# avrdude.conf in a different location.
+ifeq ($(CURRENT_OS),LINUX)
+    AVRDUDE_DIR = $(ARDUINO_DIR)/hardware/tools
+    AVRDUDE = $(AVRDUDE_DIR)/avrdude
+    AVRDUDE_CONF = $(AVRDUDE_DIR)/avrdude.conf
+else
+    AVRDUDE_DIR = $(ARDUINO_DIR)/hardware/tools/avr
+    AVRDUDE = $(AVRDUDE_DIR)/bin/avrdude
+    AVRDUDE_CONF = $(AVRDUDE_DIR)/etc/avrdude.conf
+endif
 
 ALTERNATE_CORE = pic32
 ALTERNATE_CORE_PATH = $(MPIDE_DIR)/hardware/pic32
 ARDUINO_CORE_PATH = $(ALTERNATE_CORE_PATH)/cores/$(ALTERNATE_CORE)
 ARDUINO_PREFERENCES_PATH = $(MPIDE_PREFERENCES_PATH)
 ARDUINO_DIR = $(MPIDE_DIR)
+
+CORE_AS_SRCS = $(ARDUINO_CORE_PATH)/vector_table.S
 
 ARDUINO_VERSION = 23
 
@@ -96,6 +106,7 @@ LDSCRIPT_FILE = $(ARDUINO_CORE_PATH)/$(LDSCRIPT)
 
 MCU_FLAG_NAME=mprocessor
 LDFLAGS  += -T$(ARDUINO_CORE_PATH)/$(LDSCRIPT)
+LDFLAGS  += -T$(ARDUINO_CORE_PATH)/chipKIT-application-COMMON.ld
 CPPFLAGS += -mno-smart-io -fno-short-double
 CFLAGS_STD =
 
