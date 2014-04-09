@@ -1145,7 +1145,7 @@ endif
 
 clean:
 		$(REMOVE) $(LOCAL_OBJS) $(CORE_OBJS) $(LIB_OBJS) $(CORE_LIB) $(TARGETS) $(DEPS) $(USER_LIB_OBJS) $(OTHER_OBJS)
-		find ${OBJDIR} -type d -empty -delete
+		if [ -d $(OBJDIR) ]; then find ${OBJDIR} -type d -empty -delete; fi
 
 size:	$(TARGET_HEX)
 		$(call avr_size,$(TARGET_ELF),$(TARGET_HEX))
